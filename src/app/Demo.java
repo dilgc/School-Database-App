@@ -7,7 +7,9 @@ import javafx.stage.Stage;
 import model.PersonBag;
 import model.TextbookBag;
 import utils.Utilities;
+import views.InstructorView;
 import views.StudentView;
+import views.TextbookView;
 
 public class Demo extends Application {
 
@@ -79,14 +81,20 @@ public class Demo extends Application {
 
 		Utilities.createLists("data/textbook_isbns.txt", "data/textbook_titles.txt", "data/Majors.txt", "data/Ranks.txt", "data/First Names.txt", "data/Last Names.txt");
 
-		PersonBag theBag = Utilities.restorePersonBag();
-		if(theBag==null) {
-			theBag = new PersonBag(2000);
-			Utilities.importStudents(theBag, "data/First Names.txt", "data/Last Names.txt", "data/Majors.txt");
-			Utilities.importInstructors(theBag, "data/First Names.txt", "data/Last Names.txt", "data/Ranks.txt");
+		PersonBag personBag = Utilities.restorePersonBag();
+		if(personBag==null) {
+			personBag = new PersonBag(2000);
+			Utilities.importStudents(personBag, "data/First Names.txt", "data/Last Names.txt", "data/Majors.txt");
+			Utilities.importInstructors(personBag, "data/First Names.txt", "data/Last Names.txt", "data/Ranks.txt");
 		}
 		
-		VBox root = new StudentView(theBag, primaryStage).getRoot();
+		TextbookBag textbookBag = Utilities.restoreTextbookBag();
+		if(textbookBag==null) {
+			textbookBag = new TextbookBag(50000);
+			Utilities.importBooks(textbookBag, "data/First Names.txt", "data/Last Names.txt", "data/textbook_titles.txt", "data/textbook_isbns.txt");
+		}
+		
+		VBox root = new StudentView(personBag, primaryStage).getRoot();
 		
 		Scene scene = new Scene(root, 1000, 600);
 		primaryStage.setScene(scene);

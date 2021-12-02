@@ -33,8 +33,8 @@ public class Utilities {
 		String titlesAndIsbns[][] = Utilities.emitTitleAndIsbn(titleFileName, isbnFileName);
 		for (int i = 0; i < titlesAndIsbns[0].length; i++) {
 			Name name = Utilities.emitName(firstNameFileName, lastNameFileName);
-			String isbn = titlesAndIsbns[0][i];
-			String title = titlesAndIsbns[1][i];
+			String title = titlesAndIsbns[0][i];
+			String isbn = titlesAndIsbns[1][i];
 			double price = Utilities.emitPrice();
 			textbookBag.insert(new Textbook(name, isbn, title, price));
 		}

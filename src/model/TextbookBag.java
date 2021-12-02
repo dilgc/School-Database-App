@@ -4,18 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class TextbookBag implements Serializable {
-	private ArrayList<Textbook> bookList;
+	private Textbook[] bookArr;
+	private int nElems;
 	
-	public TextbookBag() {
-		bookList = new ArrayList<>();
+	public TextbookBag(int maxSize) {
+		bookArr = new Textbook[maxSize];
 	}
 	
 	public void insert(Textbook textbook) {
-		bookList.add(textbook);
+		bookArr[nElems++] = textbook;
 	}
 	
 	public Textbook sequentialSearchByIsbn(String isbn) {
-		for(Textbook book : bookList) {
+		for(Textbook book : bookArr) {
 			if(book.getIsbn().equals(isbn)) {
 				return book;
 			}
@@ -24,24 +25,36 @@ public class TextbookBag implements Serializable {
 		return null;
 	}
 	
-	public boolean deleteByIsbn(String isbn) {
-		int i = 0;
-		for(Textbook book : bookList) {
-			if(book.getIsbn().equals(isbn)) {
-				return bookList.remove(book);
+	public Textbook deleteByIsbn(String isbn) {
+		int searched;
+		for(searched = 0; searched < nElems; searched++) {
+			if(bookArr[searched].getIsbn().equals(isbn)) {
+				break;
 			}
 		}
-		return false;
-	}
-	
-	public ArrayList<Textbook> getBookList(){
-		return bookList;
-	}
-	
-	public void display() {
-		for(Textbook book : bookList) {
-			System.out.println(book);
+		if(searched==nElems) {
+			System.out.println("Not found");
+			return null;
+		} else {
+			Textbook temp = bookArr[searched];
+			for(int j = searched; j<nElems - 1; j++) {
+				bookArr[j] = bookArr[j+1];
+			}
+			nElems--;
+			return temp;
 		}
-		System.out.println();
+	}
+	
+	public Textbook[] getBookList(){
+		return bookArr;
+	}
+	
+	public String display() {
+		String str = "";
+		for(int i = 0; i < nElems; i++) {
+			str += bookArr[i] + "\n";
+			System.out.println(i);
+		}
+		return str;
 	}
 }

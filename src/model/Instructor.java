@@ -30,7 +30,7 @@ public class Instructor extends Person implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Instructor [rank=" + rank + ", salary=" + salary + ", name=" + getName() + ", id=" + getId()
+		return "[Instructor] [ID: " + getId() + ", Name: "+ getName() + ", Rank: " + rank + ", Salary: " + salary
 				+ "]";
 	}
 

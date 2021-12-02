@@ -105,6 +105,7 @@ public class StudentView {
 			lastNameField.clear();
 			gpaField.clear();
 			majorField.clear();
+			idField.clear();
 		});
 
 		Button showBtn = new Button("Show");
